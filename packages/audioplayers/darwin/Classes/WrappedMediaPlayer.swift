@@ -120,15 +120,15 @@ class WrappedMediaPlayer {
             playingRoute: playingRoute,
             duckAudio: duckAudio
         )
-        
-        if self.url != url {
+        do {
+            if self.url != url {
             let parsedUrl = isLocal ? URL.init(fileURLWithPath: url.deletingPrefix("file://")) : URL.init(string: url)!
             let player: AVAudioPlayer
             if let existingPlayer = self.player, existingPlayer.url == parsedUrl {
                 self.url = url
                 player = existingPlayer
             } else {
-                player = try! AVAudioPlayer(contentsOf: parsedUrl)
+                player = try AVAudioPlayer(contentsOf: parsedUrl)
                 
                 self.player = player
                 self.url = url
@@ -142,6 +142,10 @@ class WrappedMediaPlayer {
         } else {
             onReady(player!)
         }
+        } catch {
+            print(error)
+        }
+        
     }
     
     func play(

@@ -5,8 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
 
-import 'api/release_mode.dart';
-
 /// This represents a single AudioPlayer, which can play one audio at a time.
 /// To play several audios at the same time, you must create several instances
 /// of this class.

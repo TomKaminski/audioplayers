@@ -118,10 +118,6 @@ class WrappedSoundPool internal constructor(override val playerId: String) : Pla
         paused = true
     }
 
-    override fun setDataSource(mediaDataSource: MediaDataSource?) {
-        throw unsupportedOperation("setDataSource")
-    }
-
     override fun setUrl(url: String, isLocal: Boolean) {
         if (this.url != null && this.url == url) {
             return
@@ -150,49 +146,7 @@ class WrappedSoundPool internal constructor(override val playerId: String) : Pla
         }
     }
 
-    override fun setVolume(volume: Double) {
-        this.volume = volume.toFloat()
-        if (playing) {
-            streamId?.let { soundPool.setVolume(it, this.volume, this.volume) }
-        }
-    }
-
-    override fun setRate(rate: Double) {
-        this.rate = rate.toFloat()
-        if (streamId != null) {
-            streamId?.let { soundPool.setRate(it, this.rate) }
-        }
-    }
-
-    override fun configAttributes(
-            respectSilence: Boolean,
-            stayAwake: Boolean,
-            duckAudio: Boolean
-    ) = Unit
-
-    override fun setReleaseMode(releaseMode: ReleaseMode) {
-        looping = releaseMode === ReleaseMode.LOOP
-        if (playing) {
-            streamId?.let { soundPool.setLoop(it, loopModeInteger()) }
-        }
-    }
-
-    override fun getDuration() = throw unsupportedOperation("getDuration")
-
-    override fun getCurrentPosition() = throw unsupportedOperation("getDuration")
-
-    override fun isActuallyPlaying(): Boolean = false
-
-    override fun setPlayingRoute(playingRoute: String) {
-        throw unsupportedOperation("setPlayingRoute")
-    }
-
-    override fun seek(position: Int) {
-        throw unsupportedOperation("seek")
-    }
-
     private fun start() {
-        setRate(rate.toDouble())
         if (paused) {
             streamId?.let { soundPool.resume(it) }
             paused = false

@@ -118,7 +118,7 @@ class WrappedSoundPool internal constructor(override val playerId: String) : Pla
         paused = true
     }
 
-    override fun setUrl(url: String, isLocal: Boolean) {
+    override fun setUrl(url: String) {
         if (this.url != null && this.url == url) {
             return
         }

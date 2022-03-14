@@ -65,9 +65,6 @@ void main() {
       await player.resume();
       expect(popCall().method, 'resume');
 
-      await player.getDuration();
-      expect(popCall().method, 'getDuration');
-
       await player.pause();
       expect(popCall().method, 'pause');
     });

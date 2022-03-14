@@ -26,11 +26,11 @@ func fromCMTime(time: CMTime) -> Int {
 }
 
 class TimeObserver {
-    let player: AVPlayer
+    let player: AVAudioPlayer
     let observer: Any
     
     init(
-        player: AVPlayer,
+        player: AVAudioPlayer,
         observer: Any
     ) {
         self.player = player

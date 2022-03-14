@@ -11,7 +11,6 @@ abstract class Player {
     abstract fun pause()
 
     abstract fun setUrl(url: String)
-    abstract fun setVolume(volume: Double)
 
     companion object {
         @JvmStatic

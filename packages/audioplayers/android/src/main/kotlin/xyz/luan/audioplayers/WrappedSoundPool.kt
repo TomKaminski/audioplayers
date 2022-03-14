@@ -139,7 +139,7 @@ class WrappedSoundPool internal constructor(override val playerId: String) : Pla
                 val start = System.currentTimeMillis()
 
                 loading = true
-                soundId = soundPool.load(getAudioPath(url, isLocal), 1)
+                soundId = soundPool.load(getAudioPath(url), 1)
                 soundIdToPlayer[soundId] = this
             }
             urlPlayers.add(this)
@@ -166,12 +166,8 @@ class WrappedSoundPool internal constructor(override val playerId: String) : Pla
     /** Integer representation of the loop mode used by Android */
     private fun loopModeInteger(): Int = if (looping) -1 else 0
 
-    private fun getAudioPath(url: String?, isLocal: Boolean): String? {
-        if (isLocal) {
-            return url?.removePrefix("file://")
-        }
-
-        return loadTempFileFromNetwork(url).absolutePath
+    private fun getAudioPath(url: String?): String? {
+        return url?.removePrefix("file://")
     }
 
     private fun loadTempFileFromNetwork(url: String?): File {

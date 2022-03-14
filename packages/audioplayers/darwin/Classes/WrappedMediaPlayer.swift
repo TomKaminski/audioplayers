@@ -28,7 +28,7 @@ class WrappedMediaPlayer {
         playingRoute: String = defaultPlayingRoute,
         looping: Bool = false,
         url: String? = nil,
-        onReady: ((AVPlayer) -> Void)? = nil
+        onReady: ((AVAudioPlayer) -> Void)? = nil
     ) {
         self.reference = reference
         self.playerId = playerId

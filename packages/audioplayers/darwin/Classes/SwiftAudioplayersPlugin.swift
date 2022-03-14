@@ -31,8 +31,6 @@ public class SwiftAudioplayersPlugin: NSObject, FlutterPlugin {
     // TODO(luan): provide generic way to control this
     var lastPlayerId: String? = nil
     
-    var timeObservers = [TimeObserver]()
-    
     var isDealloc = false
     
     init(registrar: FlutterPluginRegistrar, channel: FlutterMethodChannel) {
@@ -66,14 +64,6 @@ public class SwiftAudioplayersPlugin: NSObject, FlutterPlugin {
     }
     
     func destroy() {
-        for osberver in self.timeObservers {
-            osberver.player.removeTimeObserver(osberver.observer)
-        }
-        self.timeObservers = []
-        
-        for (_, player) in self.players {
-            player.clearObservers()
-        }
         self.players = [:]
     }
     

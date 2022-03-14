@@ -6,7 +6,6 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
-import 'api/release_mode.dart';
 import 'audioplayer.dart';
 
 /// This class represents a cache for Local Assets to be played.
@@ -121,7 +120,6 @@ class AudioCache {
   Future<AudioPlayer> play(String fileName) async {
     final uri = await load(fileName);
     final player = _player();
-    await player.setReleaseMode(ReleaseMode.stop);
     await player.play(uri.toString());
     return player;
   }

@@ -107,18 +107,6 @@ class AudioPlayer {
     return result;
   }
 
-  /// Sets the release mode.
-  ///
-  /// Check [ReleaseMode]'s doc to understand the difference between the modes.
-  Future<int> setReleaseMode(ReleaseMode releaseMode) {
-    return _invokeMethod(
-      'setReleaseMode',
-      <String, dynamic>{
-        'releaseMode': releaseMode.toString(),
-      },
-    );
-  }
-
   /// Sets the URL.
   ///
   /// Unlike [play], the playback will not resume.

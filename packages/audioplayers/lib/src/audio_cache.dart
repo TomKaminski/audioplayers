@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
 import 'audioplayer.dart';
@@ -51,14 +50,6 @@ class AudioCache {
   }
 
   Future<Uri> fetchToMemory(String fileName) async {
-    if (kIsWeb) {
-      final uri = _sanitizeURLForWeb(fileName);
-      // We rely on browser caching here. Once the browser downloads this file,
-      // the native side implementation should be able to access it from cache.
-      await http.get(uri);
-      return uri;
-    }
-
     // read local asset from rootBundle
     final byteData = await rootBundle.load('$prefix$fileName');
 
@@ -71,16 +62,6 @@ class AudioCache {
     return file.uri;
   }
 
-  Uri _sanitizeURLForWeb(String fileName) {
-    final tryAbsolute = Uri.tryParse(fileName);
-    if (tryAbsolute?.isAbsolute == true) {
-      return tryAbsolute!;
-    }
-
-    // local asset
-    return Uri.parse('assets/$prefix$fileName');
-  }
-
   /// Loads a single [fileName] to the cache.
   ///
   /// Also returns a [Future] to access that file.
@@ -89,18 +70,6 @@ class AudioCache {
       loadedFiles[fileName] = await fetchToMemory(fileName);
     }
     return loadedFiles[fileName]!;
-  }
-
-  /// Loads a single [fileName] to the cache but returns it as a File.
-  ///
-  /// Note: this is not available for web, as File doesn't make sense on the
-  /// browser!
-  Future<File> loadAsFile(String fileName) async {
-    if (kIsWeb) {
-      throw 'This method cannot be used on web!';
-    }
-    final uri = await load(fileName);
-    return File(uri.toFilePath());
   }
 
   /// Loads all the [fileNames] provided to the cache.

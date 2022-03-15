@@ -55,14 +55,7 @@ class AudioPlayer {
 
   /// Plays an audio.
   /// respectSilence and stayAwake are not implemented on macOS.
-  Future<int> play(
-    String url, {
-    double volume = 1.0,
-    bool respectSilence = false,
-    bool stayAwake = false,
-    bool duckAudio = false,
-    bool recordingActive = false,
-  }) async {
+  Future<int> play(String url) async {
     final result = await _invokeMethod(
       'play',
       <String, dynamic>{'url': url},
@@ -113,12 +106,7 @@ class AudioPlayer {
   /// this method.
   ///
   /// respectSilence is not implemented on macOS.
-  Future<int> setUrl(
-    String url, {
-    bool? isLocal,
-    bool respectSilence = false,
-    bool recordingActive = false,
-  }) {
+  Future<int> setUrl(String url) {
     return _invokeMethod(
       'setUrl',
       <String, dynamic>{'url': url},
@@ -139,7 +127,7 @@ class AudioPlayer {
     final playerId = callArgs['playerId'] as String;
     final player = players[playerId];
 
-    if (!kReleaseMode && _isAndroid() && player == null) {
+    if (!kReleaseMode && Platform.isAndroid && player == null) {
       final oldPlayer = AudioPlayer(playerId: playerId);
       await oldPlayer.release();
       oldPlayer.dispose();
@@ -158,19 +146,5 @@ class AudioPlayer {
   Future<void> dispose() async {
     await release();
     players.remove(playerId);
-  }
-
-  bool isLocalUrl(String url) {
-    return url.startsWith('/') ||
-        url.startsWith('file://') ||
-        url.substring(1).startsWith(':\\');
-  }
-
-  static bool _isAndroid() {
-    // we need to be careful because the "isAndroid" check throws errors on web.
-    if (kIsWeb) {
-      return false;
-    }
-    return Platform.isAndroid;
   }
 }

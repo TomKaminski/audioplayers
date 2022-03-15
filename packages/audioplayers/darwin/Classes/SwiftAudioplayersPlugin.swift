@@ -7,13 +7,10 @@ import MediaPlayer
 
 let OS_NAME = "iOS"
 let ENABLE_NOTIFICATIONS_HANDLER = true
-
-
 let CHANNEL_NAME = "xyz.luan/audioplayers"
 let AudioplayersPluginStop = NSNotification.Name("AudioplayersPluginStop")
 
 public class SwiftAudioplayersPlugin: NSObject, FlutterPlugin {
-    
     var registrar: FlutterPluginRegistrar
     var channel: FlutterMethodChannel
     

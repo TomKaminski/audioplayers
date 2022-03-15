@@ -13,7 +13,7 @@ class AudioplayersPlugin : MethodCallHandler, FlutterPlugin {
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
 
-    private val mediaPlayers = mutableMapOf<String, Player>()
+    private val mediaPlayers = mutableMapOf<String, WrappedSoundPool>()
     private val handler = Handler()
     private var positionUpdates: Runnable? = null
 

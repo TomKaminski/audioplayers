@@ -12,7 +12,7 @@ import java.net.URL
 import java.util.*
 import android.os.Build
 
-class WrappedSoundPool internal constructor(override val playerId: String) : Player() {
+class WrappedSoundPool internal constructor(override val playerId: String) {
     companion object {
         private val soundPool = createSoundPool()
 
@@ -74,7 +74,7 @@ class WrappedSoundPool internal constructor(override val playerId: String) : Pla
     private var looping = false
     private var loading = false
 
-    override fun play() {
+    fun play() {
         if (!loading) {
             start()
         }
@@ -82,7 +82,7 @@ class WrappedSoundPool internal constructor(override val playerId: String) : Pla
         paused = false
     }
 
-    override fun stop() {
+    fun stop() {
         if (playing) {
             streamId?.let { soundPool.stop(it) }
             playing = false
@@ -90,7 +90,7 @@ class WrappedSoundPool internal constructor(override val playerId: String) : Pla
         paused = false
     }
 
-    override fun release() {
+    fun release() {
         stop()
         val soundId = this.soundId ?: return
         val url = this.url ?: return
@@ -110,7 +110,7 @@ class WrappedSoundPool internal constructor(override val playerId: String) : Pla
         }
     }
 
-    override fun pause() {
+    fun pause() {
         if (playing) {
             streamId?.let { soundPool.pause(it) }
         }
@@ -118,7 +118,7 @@ class WrappedSoundPool internal constructor(override val playerId: String) : Pla
         paused = true
     }
 
-    override fun setUrl(url: String) {
+    fun setUrl(url: String) {
         if (this.url != null && this.url == url) {
             return
         }
@@ -163,21 +163,8 @@ class WrappedSoundPool internal constructor(override val playerId: String) : Pla
         }
     }
 
-    /** Integer representation of the loop mode used by Android */
-    private fun loopModeInteger(): Int = if (looping) -1 else 0
-
     private fun getAudioPath(url: String?): String? {
         return url?.removePrefix("file://")
-    }
-
-    private fun loadTempFileFromNetwork(url: String?): File {
-        val bytes = downloadUrl(URI.create(url).toURL())
-        val tempFile = File.createTempFile("sound", "")
-        FileOutputStream(tempFile).use {
-            it.write(bytes)
-            tempFile.deleteOnExit()
-        }
-        return tempFile
     }
 
     private fun downloadUrl(url: URL): ByteArray {
@@ -190,9 +177,5 @@ class WrappedSoundPool internal constructor(override val playerId: String) : Pla
             }
         }
         return outputStream.toByteArray()
-    }
-
-    private fun unsupportedOperation(message: String): UnsupportedOperationException {
-        return UnsupportedOperationException("LOW_LATENCY mode does not support: $message")
     }
 }

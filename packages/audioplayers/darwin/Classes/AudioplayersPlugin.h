@@ -1,10 +1,5 @@
 #import <Foundation/Foundation.h>
-
-#if TARGET_OS_IPHONE
-    #import <Flutter/Flutter.h>
-#else
-    #import <FlutterMacOS/FlutterMacOS.h>
-#endif
+#import <Flutter/Flutter.h>
 
 @interface AudioplayersPlugin : NSObject<FlutterPlugin>
 @end

@@ -25,22 +25,6 @@ class WrappedMediaPlayer {
         self.url = url
         self.onReady = onReady
     }
-        
-    func getDurationCMTime() -> CMTime? {
-        return nil
-    }
-    
-    func getDuration() -> Int? {
-        return nil
-    }
-    
-    private func getCurrentCMTime() -> CMTime? {
-        return nil
-    }
-    
-    func getCurrentPosition() -> Int? {
-        return nil
-    }
     
     func pause() {
         isPlaying = false
@@ -59,9 +43,7 @@ class WrappedMediaPlayer {
     func release() {
         player?.stop()
     }
-    
-    func onTimeInterval(time: CMTime) {}
-    
+        
     func setUrl(
         url: String,
         onReady: @escaping (AVAudioPlayer) -> Void

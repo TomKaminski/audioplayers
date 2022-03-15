@@ -12,7 +12,7 @@ import java.net.URL
 import java.util.*
 import android.os.Build
 
-class WrappedSoundPool internal constructor(override val playerId: String) {
+class WrappedSoundPool internal constructor(val playerId: String) {
     companion object {
         private val soundPool = createSoundPool()
 
@@ -157,7 +157,7 @@ class WrappedSoundPool internal constructor(override val playerId: String) {
                     volume,
                     volume,
                     0,
-                    loopModeInteger(),
+                    0,
                     1.0f
             )
         }

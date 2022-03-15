@@ -64,15 +64,15 @@ class WrappedSoundPool internal constructor(override val playerId: String) {
         }
     }
 
-    private var url: String? = null
-    private var volume = 1.0f
-    private var rate = 1.0f
-    private var soundId: Int? = null
-    private var streamId: Int? = null
-    private var playing = false
-    private var paused = false
-    private var looping = false
-    private var loading = false
+    var url: String? = null
+    var volume = 1.0f
+    var rate = 1.0f
+    var soundId: Int? = null
+    var streamId: Int? = null
+    var playing = false
+    var paused = false
+    var looping = false
+    var loading = false
 
     fun play() {
         if (!loading) {

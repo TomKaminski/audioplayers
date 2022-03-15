@@ -60,7 +60,7 @@ class AudioplayersPlugin : MethodCallHandler, FlutterPlugin {
         response.success(1)
     }
 
-    private fun getPlayer(playerId: String): Player {
+    private fun getPlayer(playerId: String): WrappedSoundPool {
         return WrappedSoundPool(playerId)
     }
 

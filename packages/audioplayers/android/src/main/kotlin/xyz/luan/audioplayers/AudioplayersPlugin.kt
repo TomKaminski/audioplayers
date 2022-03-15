@@ -49,7 +49,7 @@ class AudioplayersPlugin : MethodCallHandler, FlutterPlugin {
             "stop" -> player.stop()
             "release" -> player.release()
             "setUrl" -> {
-                val url = call.argument<String>("url") !!
+                val url = call.argument<String>("url")!!
                 player.setUrl(url)
             }
             else -> {

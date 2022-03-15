@@ -64,7 +64,7 @@ class WrappedSoundPool internal constructor(val playerId: String) {
         }
     }
 
-    var url: String? = null
+    private var url: String? = null
     var volume = 1.0f
     var rate = 1.0f
     var soundId: Int? = null

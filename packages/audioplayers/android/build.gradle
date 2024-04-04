@@ -5,7 +5,7 @@ buildscript {
     ext.kotlin_version = '1.9.10'
     repositories {
         google()
-        mavenCentral()
+        jcenter()
     }
 
     dependencies {
@@ -18,7 +18,7 @@ buildscript {
 rootProject.allprojects {
     repositories {
         google()
-        mavenCentral()
+        jcenter()
     }
 }
 
@@ -38,6 +38,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 
     sourceSets {
@@ -62,11 +66,8 @@ allprojects {
 }
 
 dependencies {
-    implementation "androidx.core:core-ktx:1.6.0"
+    implementation "androidx.core:core-ktx:1.9.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation "org.junit.jupiter:junit-jupiter:5.8.2"
     testImplementation "org.assertj:assertj-core:3.21.0"
-}
-repositories {
-    mavenCentral()
 }
